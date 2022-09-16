@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.micrecording.MicRecordingFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bluetooth_icon_guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.09" />
+
+    <Button
+        android:id="@+id/bluetooth_status"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:fontFamily="@font/poppins_medium"
+        android:padding="@dimen/dimen_10"
+        android:text="@string/bluetooth_not_connected"
+        android:textAllCaps="false"
+        android:textColor="@color/brown_color"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintBottom_toTopOf="@+id/bluetooth_icon_guide_line"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:layout_marginStart="@dimen/dimen_10"
+        android:layout_marginEnd="@dimen/dimen_10"
+        android:background="@color/divider_color"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_status" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/record_mic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/recordingTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_status"
+        app:srcCompat="@drawable/ic_voice_recording" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/left_audio_wave"
+        android:layout_width="43dp"
+        android:layout_height="@dimen/dimen_75"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/recordingTime"
+        app:layout_constraintEnd_toStartOf="@+id/record_mic"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_status"
+        app:srcCompat="@drawable/ic_left_audio_wave" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/right_audio_wave"
+        android:layout_width="43dp"
+        android:layout_height="@dimen/dimen_75"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/recordingTime"
+        app:layout_constraintStart_toEndOf="@+id/record_mic"
+        app:layout_constraintTop_toBottomOf="@+id/bluetooth_status"
+        app:srcCompat="@drawable/ic_right_audio_wave" />
+
+    <TextView
+        android:id="@+id/recordingTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:includeFontPadding="false"
+        android:text="@string/timer_default_label"
+        android:textAlignment="center"
+        android:textColor="@color/brown_color"
+        android:textSize="@dimen/text_35"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/record_icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_record_button_background"
+        android:fontFamily="@font/poppins_semibold"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:text="@string/start_record"
+        android:textColor="@color/sandal_200"
+        app:layout_constraintBottom_toTopOf="@+id/record_icon_guide_line"
+        app:layout_constraintEnd_toStartOf="@+id/right_guide_line"
+        app:layout_constraintStart_toEndOf="@+id/left_guide_line" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/record_icon_guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+</androidx.constraintlayout.widget.ConstraintLayout>

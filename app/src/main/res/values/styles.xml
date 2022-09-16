@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextSubTitle">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="font_name">@font/poppins_regular</item>
+        <item name="android:textColor">@color/dark_color</item>
+        <item name="android:textSize">@dimen/text_14</item>
+    </style>
+
+    <style name="splash_screen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/popup_background</item>
+        <item name="android:colorAccent">@color/app_color</item>
+    </style>
+
+    <style name="StatusList">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="font_name">@font/poppins_regular</item>
+        <item name="android:textColor">@color/brown_color</item>
+        <item name="android:textSize">@dimen/text_14</item>
+    </style>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_mic_recording">
+
+    <fragment
+        android:id="@+id/nav_mic_recording"
+        android:name="com.makeover.mictobluetoothspeaker.ui.micrecording.MicRecordingFragment"
+        android:label="@string/menu_recording"
+        tools:layout="@layout/fragment_mic_recording" >
+        <argument
+            android:name="from_notification"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.makeover.mictobluetoothspeaker.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_privacy_policy"
+        android:name="com.makeover.mictobluetoothspeaker.ui.settings.PrivacyPolicyFragment"
+        android:label="@string/privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
+</navigation>

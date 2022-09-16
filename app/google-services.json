@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "276416376004",
+    "project_id": "mic-to-bluetooth-speaker",
+    "storage_bucket": "mic-to-bluetooth-speaker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276416376004:android:2422f451f8d8ebefaced91",
+        "android_client_info": {
+          "package_name": "com.bluetoothMicspeaker.mic.to.speaker.loudspeaker.mictospeaker.livemicrophone.audio.recoder.karaokemicrophone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276416376004-k1i41nqb8ljui7u3fqkp36o4tu60julv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8stI575SJRRweYI4S0hG0oqnF9eyansI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276416376004-k1i41nqb8ljui7u3fqkp36o4tu60julv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="settingsBindingData"
+            type="com.makeover.mictobluetoothspeaker.databinding.SettingsDataBinding" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.settings.SettingsFragment">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/display_text_view"
+            style="@style/TextSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_20"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingEnd="@dimen/dimen_20"
+            android:paddingBottom="@dimen/dimen_10"
+            android:text="@string/display"
+            android:textColor="@color/app_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/theme_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            android:onClick="@{() -> settingsBindingData.changeTheme()}"
+            android:paddingStart="@dimen/dimen_20"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingEnd="@dimen/dimen_20"
+            android:paddingBottom="@dimen/dimen_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/display_text_view">
+
+            <ImageView
+                android:id="@+id/theme_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/theme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_theme" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/theme_title_text_view"
+                style="@style/TextSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen_20"
+                android:paddingEnd="@dimen/dimen_20"
+                android:text="@string/theme"
+                android:textColor="@color/dark_color"
+                app:layout_constraintBottom_toTopOf="@+id/theme_text_view"
+                app:layout_constraintStart_toEndOf="@+id/theme_image_view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/theme_text_view"
+                style="@style/TextDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen_20"
+                android:paddingEnd="@dimen/dimen_20"
+                android:text="@{settingsBindingData.selectedTheme}"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/theme_image_view"
+                app:layout_constraintTop_toBottomOf="@+id/theme_title_text_view" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/theme_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0.2"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:background="@color/divider_color"
+            app:layout_constraintTop_toBottomOf="@+id/theme_layout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/privacy_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            android:onClick="@{() -> settingsBindingData.navPrivacyPolicy()}"
+            android:padding="@dimen/dimen_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/theme_divider">
+
+            <ImageView
+                android:id="@+id/privacy_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/privacy_policy"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_privacy_policy" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/privacy_text_view"
+                style="@style/TextSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen_20"
+                android:paddingEnd="@dimen/dimen_20"
+                android:text="@string/privacy_policy"
+                android:textColor="@color/dark_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/privacy_image_view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/privacy_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0.2"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:background="@color/divider_color"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_layout" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_version_name"
+            style="@style/TextSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_20"
+            android:textColor="@color/dark_color"
+            android:textAlignment="center"
+            android:text="@{settingsBindingData.versionName()}"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_divider" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

@@ -1,0 +1,32 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MicToBluetoothSpeaker" parent="Theme.AppCompat">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/sandal_200</item>
+        <item name="colorPrimaryVariant">@color/sandal_500</item>
+        <item name="colorOnPrimary">@color/sandal_700</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/sandal_500</item>
+        <item name="colorSecondaryVariant">@color/sandal_500</item>
+        <item name="colorOnSecondary">@color/sandal_500</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >@color/sandal_500</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/sandal_200</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/silver</item>
+        <item name="textColorAlertDialogListItem">@color/silver</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/TextDescription</item>
+        <item name="colorAccent">@color/app_color</item>
+    </style>
+
+    <style name="TextDescription">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="font_name">@font/poppins_regular</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+</resources>

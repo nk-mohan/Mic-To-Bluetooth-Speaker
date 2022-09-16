@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Mic To Bluetooth Speaker</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">@string/app_name</string>
+    <string name="nav_header_subtitle">seabirdsdevelopers@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_recording">Mic Recording</string>
+    <string name="menu_settings">Settings</string>
+    <string name="start_record">Start Record</string>
+    <string name="end_record">End Record</string>
+    <string name="end_recording">End Recording</string>
+
+    <string name="bluetooth_not_connected">Tap here to connect bluetooth</string>
+    <string name="bluetooth_turned_off">Tap here to turn on bluetooth</string>
+    <string name="bluetooth_permission_not_available">Tap here to enable bluetooth permission</string>
+
+    <string name="audio_record_permission_label">Audio record permissions are needed for recording features</string>
+    <string name="bluetooth_permission_label">Bluetooth permissions are needed for to get bluetooth device status</string>
+    <string name="ok_label">OK</string>
+
+    <string name="theme">Theme</string>
+    <string name="display">Display</string>
+    <string name="choose_theme">Choose theme</string>
+    <string name="theme_system_default">System Default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="version_name">Version %s</string>
+
+    <string name="positive_button">OK</string>
+    <string name="negative_button">CANCEL</string>
+    <string name="timer_default_label">00:00:00</string>
+
+    <string name="continue_label">Continue</string>
+    <string name="not_now_label">Not Now</string>
+
+    <string name="mic_permission_alert_label">Mic to Bluetooth Speaker need Microphone Permission in order to use audio recording feature.</string>
+    <string name="mic_permission_denied_alert_label">Mic to Bluetooth Speaker need Microphone Permission in order to use audio recording feature. but they have been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\".</string>
+    <string name="mic_bluetooth_alert_label">Mic to Bluetooth Speaker need Microphone and Bluetooth Permission in order to use audio recording feature.</string>
+    <string name="mic_bluetooth_denied_alert_label">Mic to Bluetooth Speaker need Microphone and Bluetooth Permission in order to use audio recording feature, but they have been permanently denied. Please continue to app settings, select \"Permissions\", and enable both \"Microphone\" and \"Nearby devices\".</string>
+    <string name="bluetooth_alert_label">Mic to Bluetooth Speaker need Bluetooth Permission in order to transmit audio to bluetooth.</string>
+    <string name="bluetooth_denied_alert_label">Mic to Bluetooth Speaker need Bluetooth Permission in order to transmit audio to bluetooth, but they have been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Nearby devices\".</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="sandal_200">#F6F5F0</color>
+    <color name="sandal_500">#F6F5F0</color>
+    <color name="sandal_700">#F6F5F0</color>
+    <color name="teal_200">#732626</color>
+    <color name="teal_700">@color/teal_200</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black_gray">#767676</color>
+    <color name="silver">#D5D9DC</color>
+
+    <color name="divider_color">#E2E2E2</color>
+
+    <color name="dark_color">@color/black</color>
+    <color name="brown_color">#41291D</color>
+    <color name="brown_color_light">#8041291D</color>
+    <color name="brown_color_medium">#BF41291D</color>
+
+    <color name="app_color">@color/brown_color</color>
+    <color name="app_color_light">@color/brown_color_light</color>
+    <color name="app_color_medium">@color/brown_color_medium</color>
+
+    <color name="dark_gray">@color/black_gray</color>
+    <color name="dark_text_color">#383934</color>
+
+    <!--  App Icon color  -->
+<!--    <color name="app_icon_right_stand_highlight_color">#ffd551</color>-->
+<!--    <color name="app_icon_right_stand_color">#ffc34c</color>-->
+<!--    <color name="app_icon_left_stand_color">#ffb74b</color>-->
+<!--    <color name="app_icon_right_mic_highlight_color">#ffa730</color>-->
+<!--    <color name="app_icon_left_mic_highlight_color">#e58d23</color>-->
+<!--    <color name="app_icon_right_mic_fill_color">#bf6c0d</color>-->
+<!--    <color name="app_icon_left_mic_fill_color">#a56021</color>-->
+
+
+    <color name="app_icon_right_stand_highlight_color">#df9f9f</color>
+    <color name="app_icon_right_stand_color">#d98c8c</color>
+    <color name="app_icon_left_stand_color">#d27979</color>
+    <color name="app_icon_right_mic_highlight_color">#cc6666</color>
+    <color name="app_icon_left_mic_highlight_color">#bf4040</color>
+    <color name="app_icon_right_mic_fill_color">#862d2d</color>
+    <color name="app_icon_left_mic_fill_color">@color/teal_200</color>
+
+
+</resources>

@@ -1,0 +1,42 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MicToBluetoothSpeaker" parent="Theme.AppCompat.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/sandal_200</item>
+        <item name="colorPrimaryVariant">@color/sandal_500</item>
+        <item name="colorOnPrimary">@color/sandal_500</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/sandal_500</item>
+        <item name="colorSecondaryVariant">@color/sandal_500</item>
+        <item name="colorOnSecondary">@color/sandal_500</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >@color/sandal_200</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
+
+    <style name="Theme.MicToBluetoothSpeaker.NoActionBar" parent="Theme.MicToBluetoothSpeaker">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/dark_color</item>
+        <item name="textColorAlertDialogListItem">@color/dark_color</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/TextDescription</item>
+        <item name="colorAccent">@color/app_color</item>
+    </style>
+
+    <style name="TextDescription">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="font_name">@font/poppins_regular</item>
+        <item name="android:textColor">@color/dark_color</item>
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
+
+    <style name="Theme.MicToBluetoothSpeaker.AppBarOverlay" parent="ThemeOverlay.AppCompat.DayNight.ActionBar" />
+
+    <style name="Theme.MicToBluetoothSpeaker.PopupOverlay" parent="ThemeOverlay.AppCompat.DayNight" />
+</resources>
