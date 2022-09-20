@@ -1,4 +1,4 @@
-package com.makeover.mictobluetoothspeaker
+package com.makeover.mictobluetoothspeaker.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.makeover.mictobluetoothspeaker.R
 import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
 import com.makeover.mictobluetoothspeaker.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint

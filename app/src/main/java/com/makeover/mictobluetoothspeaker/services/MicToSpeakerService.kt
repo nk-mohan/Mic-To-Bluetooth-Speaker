@@ -10,7 +10,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.*
 import com.makeover.mictobluetoothspeaker.AppLifecycleListener
-import com.makeover.mictobluetoothspeaker.MainActivity
+import com.makeover.mictobluetoothspeaker.ui.MainActivity
 import com.makeover.mictobluetoothspeaker.R
 import com.makeover.mictobluetoothspeaker.TAG
 import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
@@ -92,7 +92,7 @@ class MicToSpeakerService : Service(), CoroutineScope {
             recordingStartedLiveData.postValue(false)
             recordingTimeLiveData.postValue(0)
             if (!AppLifecycleListener.isForeground) {
-                stopForeground(true)
+                stopForeground(STOP_FOREGROUND_REMOVE)
                 stopSelf()
             }
         }
