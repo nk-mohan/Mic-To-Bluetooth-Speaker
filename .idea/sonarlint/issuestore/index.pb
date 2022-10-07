@@ -48,5 +48,3 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 ç
 ]app/src/main/java/com/makeover/mictobluetoothspeaker/ui/micrecording/MicRecordingViewModel.kt,8\e\8e0c599201e81513ba272597ab5b78dfa76ab601
-å
-\app/src/main/java/com/makeover/mictobluetoothspeaker/ui/micrecording/MicRecordingFragment.kt,b\f\bfa393f0319ad2556fc4bc9226d63843f253e142

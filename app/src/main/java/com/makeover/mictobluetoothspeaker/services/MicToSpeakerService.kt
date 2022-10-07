@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import java.io.IOException
 import java.nio.ByteBuffer
 import kotlin.coroutines.CoroutineContext
 
@@ -37,7 +38,7 @@ class MicToSpeakerService : Service(), CoroutineScope {
     private lateinit var mAudioOutput: AudioTrack
 
     private val audioSource = MediaRecorder.AudioSource.MIC // for raw audio, use MediaRecorder.AudioSource.UNPROCESSED, see note in MediaRecorder section
-    private val sampleRate = 44100
+    private val sampleRate = 48000
     private val channelInConfig = AudioFormat.CHANNEL_IN_MONO
     private val channelOutConfig = AudioFormat.CHANNEL_OUT_MONO
     private val audioFormat = AudioFormat.ENCODING_PCM_16BIT
@@ -188,6 +189,7 @@ class MicToSpeakerService : Service(), CoroutineScope {
                             bytes.get(b)
                             bytes.rewind()
                             mAudioOutput.write(b, 0, o)
+                            os?.write(b,0,o)
                         }
                         Log.d(TAG, "$APP_NAME Finished recording")
                     } catch (e: Exception) {
@@ -209,6 +211,13 @@ class MicToSpeakerService : Service(), CoroutineScope {
                         Log.e(TAG, "$APP_NAME Can't stop playback")
                         mAudioInput.stop()
                         return
+                    }
+                    if (os != null) {
+                        try {
+                            os.close()
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "$APP_NAME Failed to start recording")
