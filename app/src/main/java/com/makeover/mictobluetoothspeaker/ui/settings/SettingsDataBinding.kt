@@ -1,6 +1,5 @@
-package com.makeover.mictobluetoothspeaker.databinding
+package com.makeover.mictobluetoothspeaker.ui.settings
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
@@ -9,7 +8,10 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.makeover.mictobluetoothspeaker.BuildConfig
@@ -23,23 +25,31 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import androidx.databinding.library.baseAdapters.BR
+import com.makeover.mictobluetoothspeaker.utils.PermissionManager
 
 
-class SettingsDataBinding @Inject constructor(@ApplicationContext val context: Context) {
+class SettingsDataBinding @Inject constructor(@ApplicationContext val context: Context) : BaseObservable() {
 
     @Inject
     lateinit var alertDialogView: AlertDialogView
 
-    private var activity: Activity? = null
+    private var activity: AppCompatActivity? = null
 
-    fun setActivity(activity: Activity?) {
+    fun setActivity(activity: AppCompatActivity) {
         this.activity = activity
     }
+
+    private lateinit var permissionRequestCallBack: PermissionRequestCallBack
 
     private var fragment: Fragment? = null
 
     fun setFragment(fragment: Fragment?) {
         this.fragment = fragment
+    }
+
+    fun setPermissionCallBack(permissionRequestCallBack: PermissionRequestCallBack){
+        this.permissionRequestCallBack = permissionRequestCallBack
     }
 
     fun changeTheme() {
@@ -67,28 +77,53 @@ class SettingsDataBinding @Inject constructor(@ApplicationContext val context: C
             else -> context.resources.getString(R.string.theme_light)
         }
 
+    fun enableOrDisableSaveRecordings() {
+        val saveRecordings = SharedPreferenceManager.getBooleanValue(AppConstants.SAVE_RECORDING)
+        if (saveRecordings) {
+            saveRecordingsEnabled = false
+        } else {
+            if (PermissionManager.isReadFilePermissionAllowed(context)
+                && PermissionManager.isWriteFilePermissionAllowed(context)) {
+                saveRecordingsEnabled = true
+            } else {
+                permissionRequestCallBack.requestStoragePermission()
+            }
+        }
+    }
+
+    @get:Bindable
+    var saveRecordingsEnabled = SharedPreferenceManager.getBooleanValue(AppConstants.SAVE_RECORDING)
+    get() = field
+    set(value) {
+        field = value
+        if (value)
+            AppUtils.createFolderIfNotExist(AppUtils.getPath(context, context.getString(R.string.recording_folder_label)))
+        SharedPreferenceManager.setBooleanValue(AppConstants.SAVE_RECORDING, value)
+        notifyPropertyChanged(BR.saveRecordingsEnabled)
+    }
+
     fun navPrivacyPolicy() {
         fragment?.findNavController()?.navigate(R.id.nav_privacy_policy)
     }
 
     fun versionName(): String {
-        val dateFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy", Locale.getDefault())
         val stringBuilder = StringBuilder()
             .append("Released On: ")
             .append(dateFormat.format(BuildConfig.BUILD_TIME))
             .append(System.getProperty("line.separator"))
             .append(String.format(context.resources.getString(R.string.version_name),
                 BuildConfig.VERSION_NAME))
-        val versiondate = dateFormat.format(BuildConfig.BUILD_TIME)
-        val versionname = BuildConfig.VERSION_NAME
-        val firstindex = stringBuilder.indexOf(versiondate)
-        val secondindex = stringBuilder.indexOf(versionname)
+        val versionDate = dateFormat.format(BuildConfig.BUILD_TIME)
+        val versionName = BuildConfig.VERSION_NAME
+        val firstIndex = stringBuilder.indexOf(versionDate)
+        val secondIndex = stringBuilder.indexOf(versionName)
         val spannableString = SpannableString(stringBuilder)
         val bold = StyleSpan(Typeface.BOLD)
-        spannableString.setSpan(bold, firstindex, versiondate.length + firstindex, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-        spannableString.setSpan(ForegroundColorSpan(Color.BLACK), firstindex, versiondate.length + firstindex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(bold, secondindex, versionname.length + secondindex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(ForegroundColorSpan(Color.BLACK), secondindex, versionname.length + secondindex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(bold, firstIndex, versionDate.length + firstIndex, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        spannableString.setSpan(ForegroundColorSpan(Color.BLACK), firstIndex, versionDate.length + firstIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(bold, secondIndex, versionName.length + secondIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(ForegroundColorSpan(Color.BLACK), secondIndex, versionName.length + secondIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         return spannableString.toString()
     }
 }

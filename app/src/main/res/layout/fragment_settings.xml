@@ -7,7 +7,7 @@
 
         <variable
             name="settingsBindingData"
-            type="com.makeover.mictobluetoothspeaker.databinding.SettingsDataBinding" />
+            type="com.makeover.mictobluetoothspeaker.ui.settings.SettingsDataBinding" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,6 +91,60 @@
             app:layout_constraintTop_toBottomOf="@+id/theme_layout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/storage_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            android:onClick="@{() -> settingsBindingData.enableOrDisableSaveRecordings()}"
+            android:padding="@dimen/dimen_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/theme_divider">
+
+            <ImageView
+                android:id="@+id/storage_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/privacy_policy"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_storage_permission" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/save_recording_text_view"
+                style="@style/TextSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen_20"
+                android:paddingEnd="@dimen/dimen_20"
+                android:text="@string/save_recoding"
+                android:textColor="@color/dark_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/storage_image_view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@{settingsBindingData.saveRecordingsEnabled}"
+                android:onClick="@{() -> settingsBindingData.enableOrDisableSaveRecordings()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/storage_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0.2"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:background="@color/divider_color"
+            app:layout_constraintTop_toBottomOf="@+id/storage_layout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/privacy_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +153,7 @@
             android:padding="@dimen/dimen_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/theme_divider">
+            app:layout_constraintTop_toBottomOf="@+id/storage_divider">
 
             <ImageView
                 android:id="@+id/privacy_image_view"

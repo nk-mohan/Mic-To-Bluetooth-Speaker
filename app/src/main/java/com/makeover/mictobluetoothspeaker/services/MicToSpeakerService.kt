@@ -10,17 +10,22 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.*
 import com.makeover.mictobluetoothspeaker.AppLifecycleListener
-import com.makeover.mictobluetoothspeaker.ui.MainActivity
 import com.makeover.mictobluetoothspeaker.R
 import com.makeover.mictobluetoothspeaker.TAG
-import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
-import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants.Companion.APP_NAME
+import com.makeover.mictobluetoothspeaker.ui.MainActivity
+import com.makeover.mictobluetoothspeaker.utils.AppUtils
 import com.makeover.mictobluetoothspeaker.utils.PendingIntentHelper
 import com.makeover.mictobluetoothspeaker.utils.RecordingUtils
+import com.makeover.mictobluetoothspeaker.utils.SharedPreferenceManager
+import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
+import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants.Companion.APP_NAME
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
 import java.nio.ByteBuffer
 import kotlin.coroutines.CoroutineContext
 
@@ -157,7 +162,20 @@ class MicToSpeakerService : Service(), CoroutineScope {
     }
 
     private fun startMicRecording() {
+        val permissionEnabled = SharedPreferenceManager.getBooleanValue(AppConstants.SAVE_RECORDING)
+        var recordingFile: File? = null
+        if (permissionEnabled)
+            recordingFile = AppUtils.getRecordingFile(this)
+
         if (mAudioOutput.state == AudioTrack.STATE_INITIALIZED && mAudioInput.state == AudioRecord.STATE_INITIALIZED) {
+            var os: FileOutputStream? = null
+            if (recordingFile != null) {
+                try {
+                    os = FileOutputStream(recordingFile)
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                }
+            }
             try {
                 mAudioOutput.play()
                 try {

@@ -7,8 +7,9 @@ import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import com.makeover.mictobluetoothspeaker.R
 import com.makeover.mictobluetoothspeaker.databinding.PermissionInstructionDialogBinding
+import javax.inject.Inject
 
-class PermissionAlertDialog constructor(private var activity: Activity) {
+class PermissionAlertDialog @Inject constructor(private var activity: Activity) {
 
     fun showPermissionInstructionDialog(
         permissionType: String,
@@ -44,6 +45,8 @@ class PermissionAlertDialog constructor(private var activity: Activity) {
             MIC_BLUETOOTH_PERMISSION_DENIED -> activity.getString(R.string.mic_bluetooth_denied_alert_label)
             BLUETOOTH_PERMISSION -> activity.getString(R.string.bluetooth_alert_label)
             BLUETOOTH_PERMISSION_DENIED -> activity.getString(R.string.bluetooth_denied_alert_label)
+            STORAGE_PERMISSION -> activity.getString(R.string.storage_permission_alert_label)
+            STORAGE_PERMISSION_DENIED -> activity.getString(R.string.storage_permission_denied_alert_label)
             else -> activity.getString(R.string.mic_permission_alert_label)
         }
     }
@@ -51,6 +54,7 @@ class PermissionAlertDialog constructor(private var activity: Activity) {
     private fun getDialogIcon(permissionType: String): Int {
         return when(permissionType) {
             BLUETOOTH_PERMISSION, BLUETOOTH_PERMISSION_DENIED -> R.drawable.ic_bluetooth_permission
+            STORAGE_PERMISSION, STORAGE_PERMISSION_DENIED -> R.drawable.ic_storage_permission_popup
             else -> R.drawable.ic_record_permission
         }
     }
@@ -81,5 +85,7 @@ class PermissionAlertDialog constructor(private var activity: Activity) {
         const val MIC_BLUETOOTH_PERMISSION_DENIED = "mic_bluetooth_permission_denied"
         const val BLUETOOTH_PERMISSION = "bluetooth_permission"
         const val BLUETOOTH_PERMISSION_DENIED = "bluetooth_permission_denied"
+        const val STORAGE_PERMISSION = "storage_permission"
+        const val STORAGE_PERMISSION_DENIED = "storage_permission_denied"
     }
 }

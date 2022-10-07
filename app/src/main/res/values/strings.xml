@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Mic To Bluetooth Speaker</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">@string/app_name</string>
@@ -28,7 +27,9 @@
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="save_recoding">Save Recordings</string>
     <string name="version_name">Version %s</string>
+    <string name="recording_folder_label">Recordings</string>
 
     <string name="positive_button">OK</string>
     <string name="negative_button">CANCEL</string>
@@ -43,8 +44,8 @@
     <string name="mic_bluetooth_denied_alert_label">Mic to Bluetooth Speaker need Microphone and Bluetooth Permission in order to use audio recording feature, but they have been permanently denied. Please continue to app settings, select \"Permissions\", and enable both \"Microphone\" and \"Nearby devices\".</string>
     <string name="bluetooth_alert_label">Mic to Bluetooth Speaker need Bluetooth Permission in order to transmit audio to bluetooth.</string>
     <string name="bluetooth_denied_alert_label">Mic to Bluetooth Speaker need Bluetooth Permission in order to transmit audio to bluetooth, but they have been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Nearby devices\".</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="storage_permission_alert_label">To save audio recording, allow Mic to Bluetooth Speaker access to your Storage.</string>
+    <string name="storage_permission_denied_alert_label">Mic to Bluetooth Speaker need the Storage Permission in order to save audio recordings, but they have been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Storage\".</string>
 
 
 </resources>

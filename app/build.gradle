@@ -26,7 +26,6 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.bluetoothMicspeaker.mic.to.speaker.loudspeaker.mictospeaker.livemicrophone.audio.recoder.karaokemicrophone"
         minSdk 24
         targetSdk 33
         versionCode 3
@@ -38,17 +37,34 @@ android {
 
     buildTypes {
         debug {
+            resValue("string", "app_name", "Dev")
             minifyEnabled false
+            debuggable true
             signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
+            resValue("string", "app_name", "Mic To Bluetooth Speaker")
             minifyEnabled true
             signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "version"
+    productFlavors {
+        production {
+            dimension "version"
+            applicationId "com.bluetoothMicspeaker.mic.to.speaker.loudspeaker.mictospeaker.livemicrophone.audio.recoder.karaokemicrophone"
+        }
+
+        development {
+            dimension "version"
+            applicationId "com.development.bluetoothMicspeaker"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
