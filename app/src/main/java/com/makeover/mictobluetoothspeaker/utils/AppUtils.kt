@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.makeover.mictobluetoothspeaker.R
 import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
 import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -72,16 +73,16 @@ object AppUtils {
     fun getRecordingFile(context: Context) : File {
         val parentPath = getPath(context, context.getString(R.string.recording_folder_label))
         val parentFolder = createFolderIfNotExist(parentPath)
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmm", Locale.getDefault()).format(Date())
-        val path = "Recording_test"
-        return File.createTempFile(path, ".pcm", parentFolder)
-    }
-
-    fun getConvertedFile(context: Context) : File {
-        val parentPath = getPath(context, context.getString(R.string.recording_folder_label))
-        val parentFolder = createFolderIfNotExist(parentPath)
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmm", Locale.getDefault()).format(Date())
-        val path = "Converted_test"
-        return File.createTempFile(path, ".wav", parentFolder)
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HH_mm_ss", Locale.getDefault()).format(Date())
+        val path = "Recording_$timeStamp.aac"
+        val file = File("$parentFolder/$path")
+        if (!file.exists()) {
+            try {
+                file.createNewFile()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return file
     }
 }

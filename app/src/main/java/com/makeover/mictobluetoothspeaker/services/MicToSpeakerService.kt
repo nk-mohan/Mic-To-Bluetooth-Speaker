@@ -1,22 +1,24 @@
 package com.makeover.mictobluetoothspeaker.services
 
 import android.annotation.SuppressLint
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.media.*
+import android.media.audiofx.AutomaticGainControl
+import android.media.audiofx.NoiseSuppressor
 import android.os.*
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
 import com.makeover.mictobluetoothspeaker.AppLifecycleListener
 import com.makeover.mictobluetoothspeaker.R
 import com.makeover.mictobluetoothspeaker.TAG
 import com.makeover.mictobluetoothspeaker.ui.MainActivity
-import com.makeover.mictobluetoothspeaker.utils.AppUtils
-import com.makeover.mictobluetoothspeaker.utils.PendingIntentHelper
-import com.makeover.mictobluetoothspeaker.utils.RecordingUtils
-import com.makeover.mictobluetoothspeaker.utils.SharedPreferenceManager
+import com.makeover.mictobluetoothspeaker.utils.*
 import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
 import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants.Companion.APP_NAME
 import kotlinx.coroutines.CoroutineScope
@@ -29,16 +31,28 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
 import kotlin.coroutines.CoroutineContext
+import android.webkit.MimeTypeMap
+
+
+
+
 
 class MicToSpeakerService : Service(), CoroutineScope {
 
     private var isRecordingStarted = false
 
     private lateinit var mAudioInput: AudioRecord
-    private lateinit var mAudioOutput: AudioTrack
+    private lateinit var mAudioOutput   : AudioTrack
+    private lateinit var mediaCodec: MediaCodec
+    private lateinit var bufferInfo: MediaCodec.BufferInfo
+    private lateinit var convertClass: Convert
+    private lateinit var codecInputBuffers: Array<ByteBuffer>
+    private lateinit var codecOutputBuffers: Array<ByteBuffer>
 
     private val audioSource = MediaRecorder.AudioSource.MIC // for raw audio, use MediaRecorder.AudioSource.UNPROCESSED, see note in MediaRecorder section
-    private val sampleRate = 48000
+    private val sampleRate = 44100
+    private val CHANNELS = 1
+    private val BIT_RATE = 32000
     private val channelInConfig = AudioFormat.CHANNEL_IN_MONO
     private val channelOutConfig = AudioFormat.CHANNEL_OUT_MONO
     private val audioFormat = AudioFormat.ENCODING_PCM_16BIT
@@ -60,7 +74,11 @@ class MicToSpeakerService : Service(), CoroutineScope {
 
         startNotification()
 
-        mAudioInput = AudioRecord(audioSource, sampleRate, channelInConfig, audioFormat, mInBufferSize)
+        createAudioRecord()
+        createMediaCodec()
+
+        bufferInfo = MediaCodec.BufferInfo()
+        convertClass = Convert()
 
         mAudioOutput = AudioTrack(
             AudioAttributes.Builder()
@@ -75,7 +93,60 @@ class MicToSpeakerService : Service(), CoroutineScope {
             AudioTrack.MODE_STREAM,
             AudioManager.AUDIO_SESSION_ID_GENERATE
         )
+
+
     }
+
+    @SuppressLint("MissingPermission")
+    private fun createAudioRecord() {
+        mAudioInput = AudioRecord(audioSource, sampleRate, channelInConfig, audioFormat, mInBufferSize)
+
+        if (mAudioInput.state != AudioRecord.STATE_INITIALIZED) {
+            Log.d(TAG, "Unable to initialize AudioRecord")
+            throw RuntimeException("Unable to initialize AudioRecord")
+        }
+
+        if (NoiseSuppressor.isAvailable()) {
+            val noiseSuppressor = NoiseSuppressor.create(mAudioInput.audioSessionId)
+            if (noiseSuppressor != null) {
+                noiseSuppressor.enabled = true
+            }
+        }
+
+        if (AutomaticGainControl.isAvailable()) {
+            val automaticGainControl = AutomaticGainControl.create(mAudioInput.audioSessionId)
+            if (automaticGainControl != null) {
+                automaticGainControl.enabled = true
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createMediaCodec(): MediaCodec {
+        mediaCodec = MediaCodec.createEncoderByType("audio/mp4a-latm")
+        val mediaFormat = MediaFormat()
+        mediaFormat.setString(MediaFormat.KEY_MIME, "audio/mp4a-latm")
+        mediaFormat.setInteger(
+            MediaFormat.KEY_SAMPLE_RATE,
+            sampleRate
+        )
+        mediaFormat.setInteger(MediaFormat.KEY_CHANNEL_COUNT, CHANNELS)
+        mediaFormat.setInteger(MediaFormat.KEY_MAX_INPUT_SIZE, mInBufferSize)
+        mediaFormat.setInteger(MediaFormat.KEY_BIT_RATE, BIT_RATE)
+        mediaFormat.setInteger(
+            MediaFormat.KEY_AAC_PROFILE,
+            MediaCodecInfo.CodecProfileLevel.AACObjectLC
+        )
+        try {
+            mediaCodec.configure(mediaFormat, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE)
+        } catch (e: Exception) {
+            Log.w(TAG, e)
+            mediaCodec.release()
+            throw IOException(e)
+        }
+        return mediaCodec
+    }
+
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
@@ -163,6 +234,7 @@ class MicToSpeakerService : Service(), CoroutineScope {
     }
 
     private fun startMicRecording() {
+
         val permissionEnabled = SharedPreferenceManager.getBooleanValue(AppConstants.SAVE_RECORDING)
         var recordingFile: File? = null
         if (permissionEnabled)
@@ -177,19 +249,24 @@ class MicToSpeakerService : Service(), CoroutineScope {
                     e.printStackTrace()
                 }
             }
+            mediaCodec.start()
+
+            codecInputBuffers = mediaCodec.inputBuffers
+            codecOutputBuffers = mediaCodec.outputBuffers
             try {
                 mAudioOutput.play()
                 try {
                     mAudioInput.startRecording()
                     try {
-                        val bytes: ByteBuffer = ByteBuffer.allocateDirect(mInBufferSize)
-                        val b = ByteArray(mInBufferSize)
+                        val audioRecordData = ByteArray(mInBufferSize)
                         while (isRecordingStarted) {
-                            val o: Int = mAudioInput.read(bytes, mInBufferSize)
-                            bytes.get(b)
-                            bytes.rewind()
-                            mAudioOutput.write(b, 0, o)
-                            os?.write(b,0,o)
+                            val length: Int = mAudioInput.read(audioRecordData, 0, mInBufferSize)
+                            if ((length == AudioRecord.ERROR_BAD_VALUE || length == AudioRecord.ERROR_INVALID_OPERATION || length != mInBufferSize) && length != mInBufferSize) {
+                                Log.d(TAG, "length != BufferSize calling onRecordFailed")
+                                return
+                            }
+                            mAudioOutput.write(audioRecordData, 0, audioRecordData.size)
+                            handleCodec(length, audioRecordData, os)
                         }
                         Log.d(TAG, "$APP_NAME Finished recording")
                     } catch (e: Exception) {
@@ -210,23 +287,72 @@ class MicToSpeakerService : Service(), CoroutineScope {
                     } catch (e: Exception) {
                         Log.e(TAG, "$APP_NAME Can't stop playback")
                         mAudioInput.stop()
+                        mAudioInput.release()
                         return
                     }
                     if (os != null) {
                         try {
                             os.close()
+                            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("aac")
+                            MediaScannerConnection.scanFile(applicationContext, arrayOf(recordingFile!!.absolutePath), arrayOf(mimeType), null)
                         } catch (e: IOException) {
                             e.printStackTrace()
                         }
                     }
+                    mediaCodec.stop()
+                    mediaCodec.release()
+                    mAudioInput.release()
+                    mAudioOutput.release()
                 } catch (e: Exception) {
                     Log.e(TAG, "$APP_NAME Failed to start recording")
                     mAudioOutput.stop()
+                    mAudioOutput.release()
                     return
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "$APP_NAME Failed to start playback")
                 return
+            }
+        }
+    }
+
+    private fun handleCodec(length: Int, audioRecordData: ByteArray, os: FileOutputStream?) {
+        os?.let { fileOutputStream ->
+            val codecInputBufferIndex = mediaCodec.dequeueInputBuffer((10 * 1000).toLong())
+
+            if (codecInputBufferIndex >= 0) {
+                val codecBuffer: ByteBuffer = codecInputBuffers[codecInputBufferIndex]
+                codecBuffer.clear()
+                codecBuffer.put(audioRecordData)
+                mediaCodec.queueInputBuffer(
+                    codecInputBufferIndex,
+                    0,
+                    length,
+                    0,
+                    0
+                )
+            }
+
+            var codecOutputBufferIndex = mediaCodec.dequeueOutputBuffer(bufferInfo, 0)
+
+            while (codecOutputBufferIndex != MediaCodec.INFO_TRY_AGAIN_LATER) {
+                if (codecOutputBufferIndex >= 0) {
+                    val encoderOutputBuffer = codecOutputBuffers[codecOutputBufferIndex]
+                    encoderOutputBuffer.position(bufferInfo.offset)
+                    encoderOutputBuffer.limit(bufferInfo.offset + bufferInfo.size)
+                    if (convertClass.checkBufferInfo(bufferInfo.flags)) {
+                        val header: ByteArray = convertClass.createAdtsHeader(bufferInfo.size - bufferInfo.offset)
+                        fileOutputStream.write(header)
+                        val data = ByteArray(encoderOutputBuffer.remaining())
+                        encoderOutputBuffer[data]
+                        fileOutputStream.write(data)
+                    }
+                    encoderOutputBuffer.clear()
+                    mediaCodec.releaseOutputBuffer(codecOutputBufferIndex, false)
+                } else if (codecOutputBufferIndex == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED) {
+                    codecOutputBuffers = mediaCodec.outputBuffers
+                }
+                codecOutputBufferIndex = mediaCodec.dequeueOutputBuffer(bufferInfo, 0)
             }
         }
     }
