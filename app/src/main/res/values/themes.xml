@@ -39,4 +39,11 @@
     <style name="Theme.MicToBluetoothSpeaker.AppBarOverlay" parent="ThemeOverlay.AppCompat.DayNight.ActionBar" />
 
     <style name="Theme.MicToBluetoothSpeaker.PopupOverlay" parent="ThemeOverlay.AppCompat.DayNight" />
+
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/popup_background</item>
+        <item name="android:colorAccent">@color/popup_color</item>
+    </style>
+
 </resources>

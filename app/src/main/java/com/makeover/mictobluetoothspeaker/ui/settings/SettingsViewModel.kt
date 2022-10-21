@@ -1,13 +1,15 @@
 package com.makeover.mictobluetoothspeaker.ui.settings
 
-import android.content.res.Configuration
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.makeover.mictobluetoothspeaker.utils.SharedPreferenceManager
 import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SettingsViewModel : ViewModel() {
+@HiltViewModel
+class SettingsViewModel @Inject constructor() : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is slideshow Fragment"
@@ -19,6 +21,4 @@ class SettingsViewModel : ViewModel() {
     fun getSelectedTheme() {
         selectedTheme.postValue(SharedPreferenceManager.getIntValue(AppConstants.DAY_NIGHT_MODE))
     }
-
-    var originalConfiguration: Configuration? = null
 }

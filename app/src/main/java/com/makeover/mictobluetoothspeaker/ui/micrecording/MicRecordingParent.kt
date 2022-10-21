@@ -23,16 +23,18 @@ import com.makeover.mictobluetoothspeaker.utils.PermissionDialogListener
 import com.makeover.mictobluetoothspeaker.utils.PermissionManager
 import com.makeover.mictobluetoothspeaker.utils.RecordingUtils
 import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 open class MicRecordingParent : Fragment(), BluetoothListener {
 
-    private val permissionAlertDialog: PermissionAlertDialog by lazy {
-        PermissionAlertDialog(requireActivity())
-    }
+    @Inject
+    lateinit var permissionAlertDialog: PermissionAlertDialog
 
     private val permissionDialogListener = object : PermissionDialogListener {
         override fun onPositiveButtonClicked() {
-            //Not Needed
+            permissionNotDenied = true
         }
 
         override fun onNegativeButtonClicked() {
@@ -191,7 +193,7 @@ open class MicRecordingParent : Fragment(), BluetoothListener {
      */
     private val isBluetoothPermissionGranted: Boolean
         get() =// Verify the SDK version for permission validation
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || PermissionManager.isPermissionAllowed(context, Manifest.permission.BLUETOOTH_CONNECT))
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || PermissionManager.isPermissionAllowed(requireContext(), Manifest.permission.BLUETOOTH_CONNECT))
                 true
             else {
                 PermissionManager.requestBluetoothPermission(requireActivity(), permissionAlertDialog, bluetoothPermissionLauncher)

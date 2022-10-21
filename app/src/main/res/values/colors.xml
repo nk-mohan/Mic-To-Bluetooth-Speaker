@@ -24,14 +24,9 @@
     <color name="dark_gray">@color/black_gray</color>
     <color name="dark_text_color">#383934</color>
 
-    <!--  App Icon color  -->
-<!--    <color name="app_icon_right_stand_highlight_color">#ffd551</color>-->
-<!--    <color name="app_icon_right_stand_color">#ffc34c</color>-->
-<!--    <color name="app_icon_left_stand_color">#ffb74b</color>-->
-<!--    <color name="app_icon_right_mic_highlight_color">#ffa730</color>-->
-<!--    <color name="app_icon_left_mic_highlight_color">#e58d23</color>-->
-<!--    <color name="app_icon_right_mic_fill_color">#bf6c0d</color>-->
-<!--    <color name="app_icon_left_mic_fill_color">#a56021</color>-->
+    <color name="popup_color">@color/brown_color</color>
+    <color name="popup_bg_color">@color/white</color>
+    <color name="popup_divider_color">@color/divider_color</color>
 
 
     <color name="app_icon_right_stand_highlight_color">#df9f9f</color>
@@ -42,5 +37,10 @@
     <color name="app_icon_right_mic_fill_color">#862d2d</color>
     <color name="app_icon_left_mic_fill_color">@color/teal_200</color>
 
+
+    <color name="color_completed_seek_progress">@color/app_icon_left_mic_highlight_color</color>
+    <color name="color_seek_bar_remaining_progress">@color/silver</color>
+    <color name="color_seek_bar_thumb">@color/app_icon_right_mic_fill_color</color>
+    <color name="color_transparent">#00000000</color>
 
 </resources>
