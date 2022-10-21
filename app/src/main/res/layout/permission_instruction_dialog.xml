@@ -8,7 +8,7 @@
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_100"
-        android:background="@color/brown_color"
+        android:background="@color/popup_color"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/dialog_description"
-        style="@style/StatusList"
+        style="@style/TextPopupDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:includeFontPadding="true"

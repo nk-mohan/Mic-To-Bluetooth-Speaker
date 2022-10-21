@@ -10,6 +10,16 @@
             android:title="@string/menu_recording" />
 
         <item
+            android:id="@+id/nav_my_recordings"
+            android:icon="@drawable/ic_my_recordings"
+            android:title="@string/menu_my_recordings" />
+
+        <item
+            android:id="@+id/nav_audio_list"
+            android:icon="@drawable/ic_audio_play_list"
+            android:title="@string/menu_audio_files" />
+
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/menu_settings" />

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="audioData"
+            type="com.makeover.mictobluetoothspeaker.ui.recordings.AudioFileData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/audio_file_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingStart="@dimen/dimen_20"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingEnd="@dimen/dimen_20"
+            android:paddingBottom="@dimen/dimen_10"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.makeover.mictobluetoothspeaker.ui.views.RoundedCornerRelativeLayout
+                android:id="@+id/music_icon"
+                android:layout_width="@dimen/dimen_35"
+                android:layout_height="@dimen/dimen_35"
+                android:background="@drawable/ic_music_placeholder"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dimen_10"
+                    app:srcCompat="@drawable/ic_music" />
+            </com.makeover.mictobluetoothspeaker.ui.views.RoundedCornerRelativeLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/file_name_text_view"
+                style="@style/TextSubTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dimen_10"
+                android:paddingEnd="@dimen/dimen_10"
+                android:text="@{audioData.fileName}"
+                android:textColor="@color/dark_color"
+                app:layout_constraintBottom_toTopOf="@+id/duration_text_view"
+                app:layout_constraintEnd_toStartOf="@+id/play_audio_file"
+                app:layout_constraintStart_toEndOf="@+id/music_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/duration_text_view"
+                style="@style/TextSubDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimen_10"
+                android:paddingEnd="@dimen/dimen_0"
+                android:text="@{audioData.fileDuration}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/music_icon"
+                app:layout_constraintTop_toBottomOf="@+id/file_name_text_view" />
+
+            <com.makeover.mictobluetoothspeaker.ui.views.CircularImageView
+                android:id="@+id/dot_text_view"
+                style="@style/TextSubDescription"
+                android:layout_width="@dimen/dimen_5"
+                android:layout_height="@dimen/dimen_5"
+                android:layout_marginStart="@dimen/dimen_5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/duration_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/file_name_text_view"
+                app:srcCompat="@color/dark_color" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/size_text_view"
+                style="@style/TextSubDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:paddingStart="@dimen/dimen_0"
+                android:paddingEnd="@dimen/dimen_10"
+                android:text="@{audioData.fileSize}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dot_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/file_name_text_view" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/play_audio_file"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_play_audio" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_0.2"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:background="@color/divider_color"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

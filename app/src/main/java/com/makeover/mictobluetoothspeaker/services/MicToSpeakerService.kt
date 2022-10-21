@@ -33,10 +33,6 @@ import java.nio.ByteBuffer
 import kotlin.coroutines.CoroutineContext
 import android.webkit.MimeTypeMap
 
-
-
-
-
 class MicToSpeakerService : Service(), CoroutineScope {
 
     private var isRecordingStarted = false
@@ -235,7 +231,7 @@ class MicToSpeakerService : Service(), CoroutineScope {
 
     private fun startMicRecording() {
 
-        val permissionEnabled = SharedPreferenceManager.getBooleanValue(AppConstants.SAVE_RECORDING)
+        val permissionEnabled = PermissionManager.isWriteFilePermissionAllowed(this)
         var recordingFile: File? = null
         if (permissionEnabled)
             recordingFile = AppUtils.getRecordingFile(this)

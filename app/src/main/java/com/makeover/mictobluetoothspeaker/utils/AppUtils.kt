@@ -2,16 +2,20 @@ package com.makeover.mictobluetoothspeaker.utils
 
 import android.app.Activity
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatDelegate
 import com.makeover.mictobluetoothspeaker.R
 import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
 import java.io.File
 import java.io.IOException
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 object AppUtils {
     fun getNightMode(): Int {
@@ -63,14 +67,14 @@ object AppUtils {
      *
      * @param path Path of the folder
      */
-    fun createFolderIfNotExist(path: String) : File {
+    fun createFolderIfNotExist(path: String): File {
         val folder = File(path)
         if (!folder.exists())
             folder.mkdirs()
         return folder
     }
 
-    fun getRecordingFile(context: Context) : File {
+    fun getRecordingFile(context: Context): File {
         val parentPath = getPath(context, context.getString(R.string.recording_folder_label))
         val parentFolder = createFolderIfNotExist(parentPath)
         val timeStamp = SimpleDateFormat("yyyyMMdd_HH_mm_ss", Locale.getDefault()).format(Date())
@@ -84,5 +88,54 @@ object AppUtils {
             }
         }
         return file
+    }
+
+    fun getAudioMediaUri(): Uri {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
+        } else {
+            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+        }
+    }
+
+    fun getStringSizeLengthFile(size: Long): String {
+        val df = DecimalFormat("0.00")
+        val sizeKb = 1024.0f
+        val sizeMb = sizeKb * sizeKb
+        val sizeGb = sizeMb * sizeKb
+        val sizeTerra = sizeGb * sizeKb
+        if (size < sizeMb) return df.format((size / sizeKb).toDouble()) + " KB"
+        else if (size < sizeGb) return df.format((size / sizeMb).toDouble()) + " MB"
+        else if (size < sizeTerra) return df.format((size / sizeGb).toDouble()) + " GB"
+        return ""
+    }
+
+    fun getAudioDuration(duration: Long): String {
+        val df = DecimalFormat("00")
+        val durationInSec = duration / 1000
+        val perMinute = 60
+        val perHour = perMinute * perMinute
+        val totalHours = durationInSec / perHour
+        val remainingMinutes = (durationInSec % perHour) / perMinute
+        val remainingSec = ((durationInSec % perHour) % perMinute)
+        return if (totalHours > 1) "${df.format(totalHours)}.${df.format(remainingMinutes)}.${df.format(remainingSec)}"
+        else if (remainingMinutes > 1) "${df.format(remainingMinutes)}.${df.format(remainingSec)}"
+        else "00.${df.format(remainingSec)}"
+    }
+
+    /**
+     * Gets the formatted time.
+     *
+     * @param timeConsume Timestamp
+     * @return String The formatted time
+     */
+    fun getFormattedTime(timeConsume: Int): String {
+        return if (timeConsume < 60) {
+            if (timeConsume < 10) "00:0$timeConsume" else "00:$timeConsume"
+        } else {
+            val sec = timeConsume % 60
+            val min = timeConsume / 60
+            if (min < 10 && sec < 10) "0$min:0$sec" else if (min < 10 && sec >= 10) "0$min:$sec" else if (min >= 10 && sec < 10) "$min:0$sec" else "$min:$sec"
+        }
     }
 }

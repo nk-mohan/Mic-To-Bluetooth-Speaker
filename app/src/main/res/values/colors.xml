@@ -24,6 +24,10 @@
     <color name="dark_gray">@color/black_gray</color>
     <color name="dark_text_color">#383934</color>
 
+    <color name="popup_color">@color/brown_color</color>
+    <color name="popup_bg_color">@color/white</color>
+    <color name="popup_divider_color">@color/divider_color</color>
+
     <!--  App Icon color  -->
 <!--    <color name="app_icon_right_stand_highlight_color">#ffd551</color>-->
 <!--    <color name="app_icon_right_stand_color">#ffc34c</color>-->
@@ -42,5 +46,10 @@
     <color name="app_icon_right_mic_fill_color">#862d2d</color>
     <color name="app_icon_left_mic_fill_color">@color/teal_200</color>
 
+
+    <color name="color_completed_seek_progress">#F3F4F8</color>
+    <color name="color_seek_bar_remaining_progress">#AFB8D0</color>
+    <color name="color_seek_bar_thumb">#8C97B3</color>
+    <color name="color_transparent">#00000000</color>
 
 </resources>

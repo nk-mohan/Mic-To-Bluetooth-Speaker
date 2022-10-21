@@ -9,12 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.makeover.mictobluetoothspeaker.AppLifecycleListener
 import com.makeover.mictobluetoothspeaker.databinding.FragmentMicRecordingBinding
 import com.makeover.mictobluetoothspeaker.MyApplication
-import com.makeover.mictobluetoothspeaker.R
 import com.makeover.mictobluetoothspeaker.utils.constants.AppConstants
 import com.makeover.mictobluetoothspeaker.services.MicToSpeakerService
-import com.makeover.mictobluetoothspeaker.utils.AppUtils
-import com.makeover.mictobluetoothspeaker.utils.Convert
-import java.io.File
 
 class MicRecordingFragment : MicRecordingParent(), View.OnClickListener {
 

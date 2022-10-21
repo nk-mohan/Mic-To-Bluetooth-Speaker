@@ -9,20 +9,33 @@
         <item name="android:textSize">@dimen/text_14</item>
     </style>
 
+    <style name="TextSubDescription">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="font_name">@font/poppins_regular</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
     <style name="splash_screen" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
-    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/popup_background</item>
-        <item name="android:colorAccent">@color/app_color</item>
-    </style>
-
-    <style name="StatusList">
+    <style name="TextPopupDescription">
         <item name="android:includeFontPadding">false</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="font_name">@font/poppins_regular</item>
-        <item name="android:textColor">@color/brown_color</item>
+        <item name="android:textColor">@color/popup_color</item>
         <item name="android:textSize">@dimen/text_14</item>
+    </style>
+
+    <style name="SeekBarStyle" parent="Base.Widget.AppCompat.SeekBar">
+        <item name="android:progressDrawable">@drawable/drawable_seek_bar_track</item>
+        <item name="android:thumb">@drawable/drawable_seek_bar_thumb</item>
+        <item name="android:thumbOffset">16dp</item>
+        <item name="android:max">100</item>
+        <item name="android:progress">0</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
     </style>
 </resources>

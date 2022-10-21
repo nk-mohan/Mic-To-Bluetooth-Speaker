@@ -9,12 +9,24 @@
         android:id="@+id/nav_mic_recording"
         android:name="com.makeover.mictobluetoothspeaker.ui.micrecording.MicRecordingFragment"
         android:label="@string/menu_recording"
-        tools:layout="@layout/fragment_mic_recording" >
+        tools:layout="@layout/fragment_mic_recording">
         <argument
             android:name="from_notification"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_my_recordings"
+        android:name="com.makeover.mictobluetoothspeaker.ui.recordings.RecordingsFragment"
+        android:label="@string/menu_my_recordings"
+        tools:layout="@layout/fragment_my_recordings"/>
+
+    <fragment
+        android:id="@+id/nav_audio_list"
+        android:name="com.makeover.mictobluetoothspeaker.ui.recordings.AudioFilesFragment"
+        android:label="@string/menu_audio_files"
+        tools:layout="@layout/fragment_my_recordings"/>
 
     <fragment
         android:id="@+id/nav_settings"

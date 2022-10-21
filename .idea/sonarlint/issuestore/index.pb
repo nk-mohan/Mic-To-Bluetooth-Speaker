@@ -1,6 +1,4 @@
 
-t
-Dapp/src/main/java/com/makeover/mictobluetoothspeaker/AppExtension.kt,4\e\4e5db8d1e960eaf9164f3950783116743e53c3ab
 Å
 Qapp/src/main/java/com/makeover/mictobluetoothspeaker/utils/PendingIntentHelper.kt,9\9\99918c47757ba56a2262bdb8ea21e74b3173925f
 É
@@ -34,10 +32,6 @@ Yapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/settings/PrivacyPolicyF
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
-w
-Gapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/MainActivity.kt,8\b\8bda587855c9234f0e1850ccb95e99c4f7fa6d0f
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 u
@@ -48,21 +42,23 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 ç
 ]app/src/main/java/com/makeover/mictobluetoothspeaker/ui/micrecording/MicRecordingViewModel.kt,8\e\8e0c599201e81513ba272597ab5b78dfa76ab601
-Ñ
-Tapp/src/main/java/com/makeover/mictobluetoothspeaker/utils/constants/AppConstants.kt,5\f\5ff2d391f2b9c2ac468571d517f088bd01c7ea52
-É
-Sapp/src/main/java/com/makeover/mictobluetoothspeaker/utils/PermissionAlertDialog.kt,3\c\3c7e686af5910e124819af6602eb0842c43a5536
-
-Oapp/src/main/java/com/makeover/mictobluetoothspeaker/utils/PermissionManager.kt,8\0\80396c09e99d9f50db67988c11edf93624855cdc
 ç
 ]app/src/main/java/com/makeover/mictobluetoothspeaker/ui/settings/PermissionRequestCallBack.kt,d\d\dd235ef36b0e3d206c8143e164553a192d9a0cc8
-Ö
-Uapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/settings/SettingsViewModel.kt,8\6\8639778430d31c9c37907a40ccf7e6875f3e598f
-ä
-Zapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/micrecording/MicRecordingParent.kt,a\3\a33e7708e45a326b02850322eed38361b4d19fb5
-Ñ
-Tapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/settings/SettingsFragment.kt,6\c\6cf716336a589d1a037314c02b5c33b90f08cd40
 á
 Wapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/settings/SettingsDataBinding.kt,6\a\6ae6813d7a66219ad2cc71a02fc00c1207a7aeaa
-å
-\app/src/main/java/com/makeover/mictobluetoothspeaker/ui/micrecording/MicRecordingFragment.kt,b\f\bfa393f0319ad2556fc4bc9226d63843f253e142
+w
+Gapp/src/main/java/com/makeover/mictobluetoothspeaker/utils/Convert.java,2\f\2ff1123bca70411a66eb5a038b4d276c78f8a875
+w
+Gapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/MainActivity.kt,8\b\8bda587855c9234f0e1850ccb95e99c4f7fa6d0f
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+t
+Dapp/src/main/java/com/makeover/mictobluetoothspeaker/AppExtension.kt,4\e\4e5db8d1e960eaf9164f3950783116743e53c3ab
+
+Oapp/src/main/java/com/makeover/mictobluetoothspeaker/utils/PermissionManager.kt,8\0\80396c09e99d9f50db67988c11edf93624855cdc
+Ñ
+Tapp/src/main/java/com/makeover/mictobluetoothspeaker/utils/constants/AppConstants.kt,5\f\5ff2d391f2b9c2ac468571d517f088bd01c7ea52
+ä
+Zapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/micrecording/MicRecordingParent.kt,a\3\a33e7708e45a326b02850322eed38361b4d19fb5
+Å
+Qapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/views/MirrorFlySeekBar.kt,2\0\2004aad1fa2c9a9fb4d6ff90ec0a1a506f003acf
