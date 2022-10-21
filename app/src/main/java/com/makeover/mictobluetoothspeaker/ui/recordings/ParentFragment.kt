@@ -161,6 +161,11 @@ open class ParentFragment : Fragment(), CoroutineScope {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        audioAlertDialog.closeAlertDialog()
+    }
+
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + Job()
 

@@ -12,7 +12,9 @@ import javax.inject.Inject
 
 class AudioAlertDialog @Inject constructor(private var activity: Activity) {
 
-    var mediaController: MediaController = MediaController(activity)
+    private var mediaController: MediaController = MediaController(activity)
+    private var alertDialog:AlertDialog? = null
+
 
     fun playAudioFile(audioFileData: AudioFileData) {
         val dialogBuilder = AlertDialog.Builder(activity, R.style.CustomAlertDialog)
@@ -38,15 +40,21 @@ class AudioAlertDialog @Inject constructor(private var activity: Activity) {
             setView(dialogBinding.root)
         }
 
-        val alertDialog = dialogBuilder.create()
-        alertDialog.show()
+        alertDialog = dialogBuilder.create()
+        alertDialog?.show()
 
         dialogBinding.cancelButton.setOnClickListener {
-            mediaController.resetAudioPlayer()
-            alertDialog.dismiss()
-        }
+            closeAlertDialog()
+         }
 
         adjustAlertDialogWidth(activity, alertDialog)
+    }
+
+    fun closeAlertDialog() {
+        if (alertDialog?.isShowing == true) {
+            mediaController.resetAudioPlayer()
+            alertDialog?.dismiss()
+        }
     }
 
     private fun playAudio(dialogBinding: PlayAudioDialogBinding, audioFileData: AudioFileData) {
@@ -62,9 +70,9 @@ class AudioAlertDialog @Inject constructor(private var activity: Activity) {
         }
     }
 
-    private fun adjustAlertDialogWidth(activity: Activity, alertDialog: AlertDialog) {
+    private fun adjustAlertDialogWidth(activity: Activity, alertDialog: AlertDialog?) {
         val layoutParams = WindowManager.LayoutParams()
-        layoutParams.copyFrom(alertDialog.window!!.attributes)
+        layoutParams.copyFrom(alertDialog?.window!!.attributes)
         layoutParams.width = (AppUtils.getScreenWidth(activity) * 0.90).toInt()
         alertDialog.window!!.attributes = layoutParams
     }

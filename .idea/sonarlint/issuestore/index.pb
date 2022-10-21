@@ -32,8 +32,6 @@ Yapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/settings/PrivacyPolicyF
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-€
-Papp/src/main/java/com/makeover/mictobluetoothspeaker/ui/views/AlertDialogView.kt,e\4\e48def0a4befc28056974a0303faa5c139d8957f
 X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 
@@ -50,20 +48,12 @@ Uapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/settings/SettingsViewMo
 Sapp/src/main/java/com/makeover/mictobluetoothspeaker/utils/PermissionAlertDialog.kt,3\c\3c7e686af5910e124819af6602eb0842c43a5536
 v
 Fapp/src/main/java/com/makeover/mictobluetoothspeaker/utils/AppUtils.kt,d\a\da469512bedf6d1c887e8c8668e93a4af0360362
-
-Qapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/views/AudioAlertDialog.kt,1\7\173ed955fc672ad572a94735c6e76e6005e29834
-ƒ
-Sapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/recordings/AudioFileData.kt,3\1\31c748f91b156e8b1e37f3a10e88bfc4ca936dcd
 ˆ
 Xapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/recordings/AudioFilesFragment.kt,a\a\aa8203c91bc607c3f8f7600cc0a34c0a9e422ed8
 ‚
 Rapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/views/CircularImageView.kt,4\8\488704394c50bdec64a4d73a71989cad8028dae7
-€
-Papp/src/main/java/com/makeover/mictobluetoothspeaker/ui/views/MediaController.kt,f\5\f5d1be4f0349ac8f09cadfaf14b3c8c6398d3508
 Œ
 \app/src/main/java/com/makeover/mictobluetoothspeaker/ui/micrecording/MicRecordingFragment.kt,b\f\bfa393f0319ad2556fc4bc9226d63843f253e142
-Š
-Zapp/src/main/java/com/makeover/mictobluetoothspeaker/ui/recordings/RecordingFileAdapter.kt,3\f\3f7e05d248f1499fb40ab5f4d9c10fc7309bca9e
 
 ]app/src/main/java/com/makeover/mictobluetoothspeaker/ui/recordings/RecordingFileViewHolder.kt,d\b\dba5cea5cab5269a01d39719d763cefc19419040
 ˆ
