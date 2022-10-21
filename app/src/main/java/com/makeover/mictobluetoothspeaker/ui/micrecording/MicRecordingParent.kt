@@ -34,7 +34,7 @@ open class MicRecordingParent : Fragment(), BluetoothListener {
 
     private val permissionDialogListener = object : PermissionDialogListener {
         override fun onPositiveButtonClicked() {
-            //Not Needed
+            permissionNotDenied = true
         }
 
         override fun onNegativeButtonClicked() {

@@ -43,10 +43,11 @@ object PermissionManager {
                         object : PermissionDialogListener {
                             override fun onPositiveButtonClicked() {
                                 openSettingsForPermission(activity)
+                                permissionDialogListener.onPositiveButtonClicked()
                             }
 
                             override fun onNegativeButtonClicked() {
-                                //Not Needed
+                                permissionDialogListener.onNegativeButtonClicked()
                             }
                         })
                 }
@@ -74,6 +75,7 @@ object PermissionManager {
                     SharedPreferenceManager.setBooleanValue(AppConstants.AUDIO_RECORD_PERMISSION_ASKED, true)
                     SharedPreferenceManager.setBooleanValue(AppConstants.BLUETOOTH_PERMISSION_ASKED, true)
                     permissionsLauncher.launch(permissionsToRequest.toTypedArray())
+                    permissionDialogListener.onPositiveButtonClicked()
                 }
 
                 override fun onNegativeButtonClicked() {
@@ -161,7 +163,12 @@ object PermissionManager {
         if (permissionsToRequest.isNotEmpty()) {
             when {
                 ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_EXTERNAL_STORAGE) -> {
-                    showPermissionPopUpForStorage(permissionsLauncher, permissionsToRequest, permissionAlertDialog)
+                    showPermissionPopUpForStorage(
+                        permissionsLauncher,
+                        permissionsToRequest,
+                        permissionAlertDialog,
+                        permissionDialogListener
+                    )
                 }
                 SharedPreferenceManager.getBooleanValue(AppConstants.STORAGE_PERMISSION_ASKED) -> {
                     permissionAlertDialog.showPermissionInstructionDialog(PermissionAlertDialog.STORAGE_PERMISSION_DENIED,
@@ -176,7 +183,7 @@ object PermissionManager {
                         })
                 }
                 else -> {
-                    showPermissionPopUpForStorage(permissionsLauncher, permissionsToRequest, permissionAlertDialog)
+                    showPermissionPopUpForStorage(permissionsLauncher, permissionsToRequest, permissionAlertDialog, permissionDialogListener)
                 }
             }
         }
@@ -185,7 +192,8 @@ object PermissionManager {
     private fun showPermissionPopUpForStorage(
         permissionsLauncher: ActivityResultLauncher<Array<String>>,
         permissionsToRequest: MutableList<String>,
-        permissionAlertDialog: PermissionAlertDialog
+        permissionAlertDialog: PermissionAlertDialog,
+        permissionDialogListener: PermissionDialogListener
     ) {
         permissionAlertDialog.showPermissionInstructionDialog(PermissionAlertDialog.STORAGE_PERMISSION,
             object : PermissionDialogListener {
@@ -195,7 +203,7 @@ object PermissionManager {
                 }
 
                 override fun onNegativeButtonClicked() {
-                    //Not Needed
+                    permissionDialogListener.onNegativeButtonClicked()
                 }
             })
     }

@@ -82,8 +82,7 @@ class SettingsDataBinding @Inject constructor(@ApplicationContext val context: C
         if (saveRecordings) {
             saveRecordingsEnabled = false
         } else {
-            if (PermissionManager.isReadFilePermissionAllowed(context)
-                && PermissionManager.isWriteFilePermissionAllowed(context)) {
+            if (PermissionManager.isWriteFilePermissionAllowed(context)) {
                 saveRecordingsEnabled = true
             } else {
                 permissionRequestCallBack.requestStoragePermission()

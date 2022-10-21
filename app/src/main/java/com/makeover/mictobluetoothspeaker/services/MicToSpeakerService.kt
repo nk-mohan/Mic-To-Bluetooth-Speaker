@@ -175,36 +175,44 @@ class MicToSpeakerService : Service(), CoroutineScope {
     private fun startNotification() {
         Log.i(TAG, "$APP_NAME startNotification")
 
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
-            return
-
         startForeground(NOTIFICATION_ID, getNotification())
     }
 
-    private fun getNotification(): Notification? {
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
-            return null
-        val channel = NotificationChannel(CHANNEL_ID, "MicRecordings", NotificationManager.IMPORTANCE_DEFAULT)
-        val notificationManger = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManger.createNotificationChannel(channel)
+    private fun getNotification(): Notification {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra(AppConstants.FROM_NOTIFICATION, true)
+            val pendingIntent = PendingIntentHelper.getActivity(this, 0, intent)
 
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(AppConstants.FROM_NOTIFICATION, true)
-        val pendingIntent = PendingIntentHelper.getActivity(this, 0, intent)
+            return NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle(applicationContext.getString(R.string.app_name))
+                .setContentText("Recording Time: ${RecordingUtils.getFormattedRecordingTimeForNotification((recordingTimeLiveData.value ?: 0L) + 1)}")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pendingIntent)
+                .build()
+        } else {
+            val channel = NotificationChannel(CHANNEL_ID, "MicRecordings", NotificationManager.IMPORTANCE_DEFAULT)
+            val notificationManger = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManger.createNotificationChannel(channel)
 
-        val acceptIntent = Intent(this, MicToSpeakerService::class.java)
-        acceptIntent.putExtra(AppConstants.EXTRA_ACTION, AppConstants.END_RECORDING)
-        val acceptPendingIntent = PendingIntentHelper.getService(this, 0, acceptIntent)
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra(AppConstants.FROM_NOTIFICATION, true)
+            val pendingIntent = PendingIntentHelper.getActivity(this, 0, intent)
 
-        return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Mic To Bluetooth Speaker")
-            .setContentText("Recording Time: ${RecordingUtils.getFormattedRecordingTimeForNotification((recordingTimeLiveData.value?:0L)+1)}")
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentIntent(pendingIntent)
-            .setOnlyAlertOnce(true)
-            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-            .addAction(R.drawable.ic_mic_recording, getString(R.string.end_recording), acceptPendingIntent)
-            .build()
+            val acceptIntent = Intent(this, MicToSpeakerService::class.java)
+            acceptIntent.putExtra(AppConstants.EXTRA_ACTION, AppConstants.END_RECORDING)
+            val acceptPendingIntent = PendingIntentHelper.getService(this, 0, acceptIntent)
+
+            return NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle(applicationContext.getString(R.string.app_name))
+                .setContentText("Recording Time: ${RecordingUtils.getFormattedRecordingTimeForNotification((recordingTimeLiveData.value ?: 0L) + 1)}")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pendingIntent)
+                .setOnlyAlertOnce(true)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .addAction(R.drawable.ic_mic_recording, getString(R.string.end_recording), acceptPendingIntent)
+                .build()
+        }
     }
 
     private fun updateNotification() {
@@ -231,7 +239,7 @@ class MicToSpeakerService : Service(), CoroutineScope {
 
     private fun startMicRecording() {
 
-        val permissionEnabled = PermissionManager.isWriteFilePermissionAllowed(this)
+        val permissionEnabled = PermissionManager.isWriteFilePermissionAllowed(this) && SharedPreferenceManager.getBooleanValue(AppConstants.SAVE_RECORDING)
         var recordingFile: File? = null
         if (permissionEnabled)
             recordingFile = AppUtils.getRecordingFile(this)
